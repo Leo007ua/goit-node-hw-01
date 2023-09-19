@@ -1,7 +1,14 @@
-const constants = require("./db");
-
 const { Command } = require("commander");
 const program = new Command();
+
+const {
+  addContact,
+  getContactById,
+  listContacts,
+  removeContact,
+  updateContactById,
+} = require("./db/contacts");
+
 program
   .option("-a, --action <type>", "choose action")
   .option("-i, --id <type>", "user id")
@@ -16,28 +23,49 @@ const argv = program.opts();
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
-      const allContacts = await listContacts();
-      console.log(allContacts);
+      try {
+        const allContacts = await listContacts();
+        console.log(allContacts);
+      } catch (error) {
+        console.log(error.message);
+      }
       break;
 
     case "get":
-      const getById = await getContactById(id);
-      console.log(getById);
+      try {
+        const getById = await getContactById(id);
+        console.log(getById);
+      } catch (error) {
+        console.log(error.message);
+      }
       break;
 
     case "add":
-      const add = await addContact(name, email, phone);
-      console.log(add);
+      try {
+        const add = await addContact(name, email, phone);
+        console.log(add);
+      } catch (error) {
+        console.log(error.message);
+      }
       break;
 
     case "remove":
-      const remove = await removeContact(id);
-      console.log(remove);
+      try {
+        const remove = await removeContact(id);
+        console.log(remove);
+      } catch (error) {
+        console.log(error.message);
+      }
       break;
 
     case "update":
-      const update = await updateContactById(id, name, email, phone);
-      console.log(update);
+      try {
+        const update = await updateContactById(id, name, email, phone);
+        console.log(update);
+      } catch (error) {
+        console.log(error.message);
+      }
+      break;
 
     default:
       console.warn("\x1B[31m Unknown action type!");
