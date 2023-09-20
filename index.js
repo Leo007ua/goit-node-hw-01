@@ -7,7 +7,7 @@ const {
   listContacts,
   removeContact,
   updateContactById,
-} = require("./db/contacts");
+} = require("./contacts");
 
 program
   .option("-a, --action <type>", "choose action")
